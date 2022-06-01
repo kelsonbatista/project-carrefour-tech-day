@@ -2,29 +2,17 @@ import { useEffect, useState } from "react";
 import Header from "./components/Header";
 import Loading from "./components/Loading";
 import fetchGeolocationAPI from "./services/geolocationAPI";
+import fetchProductsAPI from "./services/productsAPI";
 import fetchSellersAPI from "./services/sellersAPI";
 
 const App = () => {
-  const [sellers, setSellers] = useState([]);
+  const [seller, setSeller] = useState(null);
+  const [products, setProducts] = useState([]);
   const [postalcode, setPostalCode] = useState(null);
   const [borough, setBorough] = useState(null);
   const [city, setCity] = useState(null);
   const [country, setCountry] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-
-  const getUserData = async () => {
-    if (postalcode !== null) {
-      console.log(postalcode, "<<<<<<<<POSTAL");
-      await handleSellers(setIsLoading, "BRA", postalcode);
-    }
-  };
-
-  const handleSellers = async (setIsLoading, country, postalcode) => {
-    const pc = await postalcode.replace("-", "");
-    const getSellers = await fetchSellersAPI(setIsLoading, country, pc);
-    console.log(getSellers, "<<<<<<<<<<< GET SELLERS");
-    setSellers(getSellers);
-  };
 
   const handleLocation = async () => {
     console.log(isLoading, "isloadinggggggggggggggggg");
@@ -50,6 +38,27 @@ const App = () => {
     setCountry(location[4]);
   };
 
+  const getUserData = async () => {
+    if (postalcode !== null) {
+      console.log(postalcode, "<<<<<<<<POSTAL");
+      await handleSellers(setIsLoading, "BRA", postalcode);
+    }
+  };
+
+  const handleSellers = async (setIsLoading, country, postalcode) => {
+    const pc = await postalcode.replace("-", "");
+    const getSellers = await fetchSellersAPI(setIsLoading, country, pc);
+    console.log(getSellers, "<<<<<<<<<<< GET SELLERS");
+    const nearstSeller = getSellers[0];
+    const sellerName = nearstSeller.name;
+    setSeller(() => sellerName);
+  };
+
+  const handleProducts = async () => {
+    const getProducts = await fetchProductsAPI(setIsLoading, seller);
+    setProducts(() => getProducts.data);
+  };
+
   function handleLocationError(error) {
     switch (error.code) {
       case error.PERMISSION_DENIED:
@@ -71,12 +80,23 @@ const App = () => {
 
   useEffect(() => {
     handleLocation();
-    console.log(typeof postalcode, postalcode, "<<<<<<<<<<<<<<<<PCODE");
+    console.log(typeof postalcode, postalcode, "<<<<<<<<<<<<<<<<POSTAL CODE");
   }, []);
 
   useEffect(() => {
     getUserData();
   }, [postalcode]);
+
+  useEffect(() => {
+    console.log(seller, "<<<<<<<<<<<<<<< SELLER EFFECT");
+    handleProducts();
+  }, [seller]);
+
+  useEffect(() => {
+    return () => {
+      setIsLoading(false);
+    };
+  }, []);
 
   return (
     <>
@@ -85,18 +105,23 @@ const App = () => {
         {isLoading === true ? (
           <Loading />
         ) : (
-          <ul>
-            <li>{`Bairro: ${borough}`}</li>
-            <li>{`Cidade: ${city}`}</li>
-            <li>{`CEP: ${postalcode}`}</li>
-            <li>{`País: ${country}`}</li>
-          </ul>
+          <>
+            <ul>
+              <li>{`Bairro: ${borough}`}</li>
+              <li>{`Cidade: ${city}`}</li>
+              <li>{`CEP: ${postalcode}`}</li>
+              <li>{`País: ${country}`}</li>
+            </ul>
+            <ul>
+              <li>{seller}</li>
+            </ul>
+            <ul>
+              {products.map((product) => (
+                <li key={product.productId}>{product.productName}</li>
+              ))}
+            </ul>
+          </>
         )}
-        <ul>
-          {sellers.map((seller) => (
-            <li key={seller.id}>{seller.name}</li>
-          ))}
-        </ul>
       </main>
     </>
   );
