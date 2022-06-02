@@ -7,16 +7,32 @@
     @apply text-center;
   }
 
-  .products {
-    @apply w-11/12 mx-auto;
+  .products__navbar {
+    @apply hidden bg-bg-blue-carrefour text-white h-10 sm:block;
+  }
+
+  .products__navbar-items ul {
+    @apply hidden  flex justify-around self-center w-11/12 h-[40px] mx-auto sm:flex sm:text-xs md:text-sm;
+  }
+
+  .products__navbar-items ul li {
+    @apply self-center;
   }
 
   .products__seller {
-    @apply flex justify-around items-center bg-bg-blue-carrefour text-white h-16;
+    @apply h-16;
+  }
+
+  .products__seller-info {
+    @apply flex justify-around items-center w-11/12 h-full mx-auto;
   }
 
   .products__user {
     @apply font-bold;
+  }
+
+  .products__newCep {
+    @apply ml-3 mt-1;
   }
 
   .products__store {
