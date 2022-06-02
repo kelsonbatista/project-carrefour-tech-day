@@ -1,5 +1,7 @@
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
+import { AiOutlineDownCircle } from "react-icons/ai";
+import { IoLocationOutline } from "react-icons/io5";
 import { connect } from "react-redux";
 import "./assets/styles/app.css";
 import Header from "./components/Header";
@@ -99,14 +101,38 @@ const App = (props) => {
             <Loading />
           ) : (
             <>
-              <div className="products__seller">
-                <div className="products__user">
-                  <p>Encontramos uma loja próxima à você!</p>
-                  <p>Sua localização: {`${borough}, ${city}`}</p>
+              <div className="products__navbar">
+                <div className="products__navbar-items">
+                  <ul>
+                    <li>Todos departamentos</li>
+                    <li>Ofertas do dia</li>
+                    <li>Mundo Gamer</li>
+                    <li>Smartphones</li>
+                    <li>Pneus & Auto</li>
+                    <li>Xiaomi</li>
+                    <li>Notebooks</li>
+                    <li>Eletrodomésticos</li>
+                  </ul>
                 </div>
-                <div>
-                  <span className="products__store">Loja: {seller}</span>
-                  <button className="products__button">Trocar loja</button>
+              </div>
+              <div className="products__seller">
+                <div className="products__seller-info">
+                  <div className="products__user">
+                    <div>
+                      <IoLocationOutline size="20px" />
+                    </div>
+                    <div>{`Ofertas para: ${city}`}</div>
+                    <div>
+                      <AiOutlineDownCircle
+                        className="products__newCep"
+                        size="20px"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <span className="products__store">Loja: {seller}</span>
+                    <button className="products__button">Trocar loja</button>
+                  </div>
                 </div>
               </div>
               <div>{<Products />}</div>
