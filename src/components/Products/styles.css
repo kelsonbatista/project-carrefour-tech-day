@@ -4,10 +4,14 @@
 
 @layer components {
   .products__all {
-    @apply flex justify-between flex-wrap;
+    @apply w-11/12 mx-auto flex justify-between flex-wrap;
   }
 
   .product__card {
     @apply w-60 mb-10;
+  }
+
+  .products__user {
+    @apply flex;
   }
 }
