@@ -32,7 +32,7 @@ const Products = (props) => {
         <Loading />
       ) : (
         <>
-          <div className="products">
+          <div className="products__all">
             {products.map((product) => (
               <div key={product.productId} className="product__card">
                 <div>
