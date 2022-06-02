@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .header {
+    @apply bg-yellow-400 flex justify-center w-11/12 mx-auto h-20;
+  }
+
+  .header__logo {
+    @apply w-56 self-end;
+  }
+
+  .header__search {
+    @apply w-[600px] h-[30px];
+  }
+
+  .header__icons {
+    @apply bg-green-500;
+  }
+}
