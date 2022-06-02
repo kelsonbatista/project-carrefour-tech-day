@@ -1,3 +1,10 @@
+import {
+  faBox,
+  faCartShopping,
+  faMagnifyingGlass,
+  faUser,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import logo from "../../assets/images/logo-carrefour-site.png";
 import "./styles.css";
 
@@ -5,26 +12,25 @@ const Header = () => {
   return (
     <header>
       <section className="header">
-        <div>
-          <img src={logo} alt="Carrefour" className="header__logo" />
+        <div className="header__logo">
+          <img src={logo} alt="Carrefour" className="header__logo-img" />
         </div>
-        <div className="header__search input-group mb-3">
+        <div className="header__search input mb-3">
           <input
             type="text"
-            className="form-control"
-            placeholder="Recipient's username"
-            aria-label="Recipient's username"
-            aria-describedby="button-addon2"
+            className="header__input form-control"
+            placeholder="Pesquise por produtos ou marcas"
+            aria-label="Pesquise por produtos ou marcas"
           />
-          <button
-            className="btn btn-outline-secondary"
-            type="button"
-            id="button-addon2"
-          >
-            <FontAwesomeIcon icon="fa-solid fa-magnifying-glass" />
+          <button className="header__button btn btn-primary">
+            <FontAwesomeIcon icon={faMagnifyingGlass} />
           </button>
         </div>
-        <div className="header__icons">Icons</div>
+        <div className="header__icons">
+          <FontAwesomeIcon icon={faUser} />
+          <FontAwesomeIcon icon={faBox} />
+          <FontAwesomeIcon icon={faCartShopping} />
+        </div>
       </section>
     </header>
   );
