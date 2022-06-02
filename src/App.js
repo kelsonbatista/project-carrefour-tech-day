@@ -1,13 +1,16 @@
+import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
+import { connect } from "react-redux";
 import Header from "./components/Header";
 import Loading from "./components/Loading";
+import Products from "./components/Products";
 import fetchGeolocationAPI from "./services/geolocationAPI";
-import fetchProductsAPI from "./services/productsAPI";
 import fetchSellersAPI from "./services/sellersAPI";
+import { setLoading, setProductsSeller } from "./store/actions";
 
-const App = () => {
+const App = (props) => {
+  const { dispatchSeller, dispatchLoading } = props;
   const [seller, setSeller] = useState(null);
-  const [products, setProducts] = useState([]);
   const [postalcode, setPostalCode] = useState(null);
   const [borough, setBorough] = useState(null);
   const [city, setCity] = useState(null);
@@ -52,11 +55,8 @@ const App = () => {
     const nearstSeller = getSellers[0];
     const sellerName = nearstSeller.name;
     setSeller(() => sellerName);
-  };
-
-  const handleProducts = async () => {
-    const getProducts = await fetchProductsAPI(setIsLoading, seller);
-    setProducts(() => getProducts.data);
+    dispatchSeller(sellerName);
+    dispatchLoading(isLoading);
   };
 
   function handleLocationError(error) {
@@ -87,17 +87,6 @@ const App = () => {
     getUserData();
   }, [postalcode]);
 
-  useEffect(() => {
-    console.log(seller, "<<<<<<<<<<<<<<< SELLER EFFECT");
-    handleProducts();
-  }, [seller]);
-
-  useEffect(() => {
-    return () => {
-      setIsLoading(false);
-    };
-  }, []);
-
   return (
     <>
       <Header />
@@ -115,11 +104,8 @@ const App = () => {
             <ul>
               <li>{seller}</li>
             </ul>
-            <ul>
-              {products.map((product) => (
-                <li key={product.productId}>{product.productName}</li>
-              ))}
-            </ul>
+            <div>{<Products />}</div>
+            {console.log(isLoading, "IS LOADING")}
           </>
         )}
       </main>
@@ -127,4 +113,14 @@ const App = () => {
   );
 };
 
-export default App;
+App.propTypes = {
+  dispatchSeller: PropTypes.func,
+  dispatchLoading: PropTypes.func,
+}.isRequired;
+
+const mapDispatchToProps = (dispatch) => ({
+  dispatchSeller: (seller) => dispatch(setProductsSeller(seller)),
+  dispatchLoading: (loading) => dispatch(setLoading(loading)),
+});
+
+export default connect(null, mapDispatchToProps)(App);
