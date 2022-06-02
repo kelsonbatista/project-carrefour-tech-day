@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  body {
+    @apply text-center;
+  }
+
+  .products {
+    @apply w-11/12 mx-auto;
+  }
+
+  .products__seller {
+    @apply flex justify-around items-center bg-bg-blue-carrefour text-white h-16;
+  }
+
+  .products__user {
+    @apply font-bold;
+  }
+
+  .products__store {
+    @apply mr-5;
+  }
+
+  .products__button {
+    @apply py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75;
+  }
+}
