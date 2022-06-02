@@ -1,15 +1,16 @@
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import { connect } from "react-redux";
+import "./assets/styles/app.css";
 import Header from "./components/Header";
 import Loading from "./components/Loading";
 import Products from "./components/Products";
 import fetchGeolocationAPI from "./services/geolocationAPI";
 import fetchSellersAPI from "./services/sellersAPI";
-import { setLoading, setProductsSeller } from "./store/actions";
+import { setLoading, setProductsSeller, setUser } from "./store/actions";
 
 const App = (props) => {
-  const { dispatchSeller, dispatchLoading } = props;
+  const { dispatchSeller, dispatchLoading, dispatchUser } = props;
   const [seller, setSeller] = useState(null);
   const [postalcode, setPostalCode] = useState(null);
   const [borough, setBorough] = useState(null);
@@ -39,6 +40,7 @@ const App = (props) => {
     setCity(location[2]);
     setPostalCode(() => location[3].trim());
     setCountry(location[4]);
+    console.log(borough, "<<<<<<<<<<BOROUGH");
   };
 
   const getUserData = async () => {
@@ -85,29 +87,33 @@ const App = (props) => {
 
   useEffect(() => {
     getUserData();
+    dispatchUser({ borough, city, postalcode, country });
   }, [postalcode]);
 
   return (
     <>
       <Header />
       <main>
-        {isLoading === true ? (
-          <Loading />
-        ) : (
-          <>
-            <ul>
-              <li>{`Bairro: ${borough}`}</li>
-              <li>{`Cidade: ${city}`}</li>
-              <li>{`CEP: ${postalcode}`}</li>
-              <li>{`País: ${country}`}</li>
-            </ul>
-            <ul>
-              <li>{seller}</li>
-            </ul>
-            <div>{<Products />}</div>
-            {console.log(isLoading, "IS LOADING")}
-          </>
-        )}
+        <section className="products">
+          {isLoading === true ? (
+            <Loading />
+          ) : (
+            <>
+              <div className="products__seller">
+                <div className="products__user">
+                  <p>Encontramos uma loja próxima à você!</p>
+                  <p>Sua localização: {`${borough}, ${city}`}</p>
+                </div>
+                <div>
+                  <span className="products__store">Loja: {seller}</span>
+                  <button className="products__button">Trocar loja</button>
+                </div>
+              </div>
+              <div>{<Products />}</div>
+              {console.log(isLoading, "IS LOADING")}
+            </>
+          )}
+        </section>
       </main>
     </>
   );
@@ -116,11 +122,13 @@ const App = (props) => {
 App.propTypes = {
   dispatchSeller: PropTypes.func,
   dispatchLoading: PropTypes.func,
+  dispatchUser: PropTypes.func,
 }.isRequired;
 
 const mapDispatchToProps = (dispatch) => ({
   dispatchSeller: (seller) => dispatch(setProductsSeller(seller)),
   dispatchLoading: (loading) => dispatch(setLoading(loading)),
+  dispatchUser: (user) => dispatch(setUser(user)),
 });
 
 export default connect(null, mapDispatchToProps)(App);
