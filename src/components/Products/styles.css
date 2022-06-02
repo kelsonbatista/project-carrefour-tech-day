@@ -1,7 +1,13 @@
-.products {
-  width: 90vw;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-.product__card {
-  width: 250px;
+@layer components {
+  .products__all {
+    @apply flex justify-between flex-wrap;
+  }
+
+  .product__card {
+    @apply w-60 mb-10;
+  }
 }
