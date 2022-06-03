@@ -24,15 +24,19 @@
   }
 
   .header__search {
-    @apply flex justify-center px-0 py-3 md:w-[800px] md:h-full md:px-8;
+    @apply flex justify-center px-0 py-3 w-[100%] md:h-full md:px-8;
+  }
+
+  .header__form {
+    @apply w-[100%] sm:w-full sm:max-w-[800px];
   }
 
   .header__input {
-    @apply h-[40px] self-center md:w-[800px];
+    @apply h-[40px] self-center md:w-[800px] mt-1;
   }
 
   .header__button {
-    @apply h-[40px] bg-bg-blue-carrefour self-center -m-2;
+    @apply h-[40px] bg-bg-blue-carrefour self-center mt-1;
   }
 
   .header__icons {

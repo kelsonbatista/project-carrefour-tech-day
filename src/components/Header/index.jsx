@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
+import { Button, Form, FormControl, InputGroup } from "react-bootstrap";
 import { AiOutlineMenu } from "react-icons/ai";
 import { BiUser } from "react-icons/bi";
 import { BsBoxSeam, BsCart2, BsHeart } from "react-icons/bs";
@@ -45,24 +46,28 @@ const Header = (props) => {
             <BsCart2 size="30px" color="blue" />
           </div>
         </div>
-        <div className="header__search input mb-3">
-          <form>
-            <input
-              type="text"
-              className="header__input form-control"
-              onChange={({ target }) => setFilterProduct(target.value)}
-              placeholder="Pesquise por produtos ou marcas"
-              aria-label="Pesquise por produtos ou marcas"
-              value={filterProduct}
-            />
-            <button
-              className="header__button btn btn-primary"
-              type="submit"
-              onClick={(event) => handleFilterProduct(event)}
-            >
-              <GrSearch color="white" />
-            </button>
-          </form>
+        <div className="header__search">
+          <Form className="header__form">
+            <InputGroup className=" mb-3">
+              <FormControl
+                type="text"
+                className="header__input form-control"
+                onChange={({ target }) => setFilterProduct(target.value)}
+                placeholder="Pesquise por produtos ou marcas"
+                aria-label="Pesquise por produtos ou marcas"
+                aria-describedby="basic-addon2"
+                value={filterProduct}
+              />
+              <Button
+                className="header__button btn btn-primary"
+                type="submit"
+                onClick={(event) => handleFilterProduct(event)}
+                id="basic-addon2"
+              >
+                <GrSearch color="white" />
+              </Button>
+            </InputGroup>
+          </Form>
         </div>
         <div className="header__icons">
           <BiUser size="30px" color="blue" />
