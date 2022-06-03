@@ -9,21 +9,41 @@ import "./styles.css";
 
 const Products = (props) => {
   const [products, setProducts] = useState([]);
-  const { seller, dispatchProducts } = props;
+  const [filteredData, setFilteredData] = useState([]);
+  const { seller, filter, dispatchProducts } = props;
   const [isLoading, setIsLoading] = useState(true);
 
   console.log(seller, "<<<<<<<<< SELLER PROD");
+  console.log(filter, "<<<<<<<<< SELLER PROD FILTER");
 
   const handleProducts = async () => {
-    const getProducts = await fetchProductsAPI(setIsLoading, seller);
-    setProducts(() => getProducts.data);
-    dispatchProducts(getProducts.data);
+    const { data } = await fetchProductsAPI(setIsLoading, seller);
+    setProducts(() => data);
+    setFilteredData(() => data);
+    dispatchProducts(data);
+  };
+
+  const handleFilteredData = (filter) => {
+    console.log(filter, "<<<<<<<<<< HANDLE FILTER");
+    const filteredData = products.filter((product) =>
+      product.items[0].nameComplete.toLowerCase().includes(filter.toLowerCase())
+    );
+    setFilteredData(filteredData);
   };
 
   useEffect(() => {
     console.log(seller, "<<<<<<<<<<<<<<< SELLER EFFECT");
     handleProducts();
   }, [seller]);
+
+  useEffect(() => {
+    console.log(filter, "<<<<<<<<<FILLLLL");
+    handleFilteredData(filter);
+  }, [filter]);
+
+  useEffect(() => {
+    console.log(filteredData, "<<<<<<<<<<<<<FILTERED");
+  }, [filteredData]);
 
   return (
     <>
@@ -33,7 +53,7 @@ const Products = (props) => {
       ) : (
         <>
           <div className="products__all">
-            {products.map((product) => (
+            {filteredData.map((product) => (
               <div key={product.productId} className="product__card">
                 <div>
                   <Image
@@ -56,10 +76,12 @@ const Products = (props) => {
 
 Products.propTypes = {
   seller: PropTypes.string,
+  filter: PropTypes.string,
 }.isRequired;
 
 const mapStateToProps = (state) => ({
   seller: state.seller,
+  filter: state.products.filter,
 });
 
 const mapDispatchToProps = (dispatch) => ({
