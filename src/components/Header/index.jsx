@@ -1,12 +1,24 @@
+import PropTypes from "prop-types";
+import { useState } from "react";
 import { AiOutlineMenu } from "react-icons/ai";
 import { BiUser } from "react-icons/bi";
 import { BsBoxSeam, BsCart2, BsHeart } from "react-icons/bs";
 import { GrSearch } from "react-icons/gr";
+import { connect } from "react-redux";
 import bannerTop from "../../assets/images/banner-top-1.png";
 import logo from "../../assets/images/logo-carrefour-site.png";
+import { setFilter } from "../../store/actions";
 import "./styles.css";
 
-const Header = () => {
+const Header = (props) => {
+  const { dispatchFilterProduct } = props;
+  const [filterProduct, setFilterProduct] = useState("");
+
+  const handleFilterProduct = (event) => {
+    event.preventDefault();
+    dispatchFilterProduct(filterProduct);
+  };
+
   return (
     <header>
       <section className="header__banner">
@@ -34,15 +46,23 @@ const Header = () => {
           </div>
         </div>
         <div className="header__search input mb-3">
-          <input
-            type="text"
-            className="header__input form-control"
-            placeholder="Pesquise por produtos ou marcas"
-            aria-label="Pesquise por produtos ou marcas"
-          />
-          <button className="header__button btn btn-primary">
-            <GrSearch color="white" />
-          </button>
+          <form>
+            <input
+              type="text"
+              className="header__input form-control"
+              onChange={({ target }) => setFilterProduct(target.value)}
+              placeholder="Pesquise por produtos ou marcas"
+              aria-label="Pesquise por produtos ou marcas"
+              value={filterProduct}
+            />
+            <button
+              className="header__button btn btn-primary"
+              type="submit"
+              onClick={(event) => handleFilterProduct(event)}
+            >
+              <GrSearch color="white" />
+            </button>
+          </form>
         </div>
         <div className="header__icons">
           <BiUser size="30px" color="blue" />
@@ -55,4 +75,12 @@ const Header = () => {
   );
 };
 
-export default Header;
+Header.propTypes = {
+  dispatchFilterProduct: PropTypes.func,
+}.isRequired;
+
+const mapDispatchToProps = (dispatch) => ({
+  dispatchFilterProduct: (filter) => dispatch(setFilter(filter)),
+});
+
+export default connect(null, mapDispatchToProps)(Header);
