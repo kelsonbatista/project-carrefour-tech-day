@@ -4,6 +4,7 @@ import { AiOutlineDownCircle } from "react-icons/ai";
 import { IoLocationOutline } from "react-icons/io5";
 import { connect } from "react-redux";
 import "./assets/styles/app.css";
+import Footer from "./components/Footer";
 import Header from "./components/Header";
 import Loading from "./components/Loading";
 import Products from "./components/Products";
@@ -121,17 +122,13 @@ const App = (props) => {
                     <div>
                       <IoLocationOutline size="20px" />
                     </div>
-                    <div>{`Ofertas para: ${city}`}</div>
+                    <div>{`Ofertas para: ${city}${seller}`}</div>
                     <div>
                       <AiOutlineDownCircle
                         className="products__newCep"
                         size="20px"
                       />
                     </div>
-                  </div>
-                  <div>
-                    <span className="products__store">Loja: {seller}</span>
-                    <button className="products__button">Trocar loja</button>
                   </div>
                 </div>
               </div>
@@ -141,6 +138,7 @@ const App = (props) => {
           )}
         </section>
       </main>
+      <Footer />
     </>
   );
 };
