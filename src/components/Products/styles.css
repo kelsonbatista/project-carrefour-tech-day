@@ -8,10 +8,14 @@
   }
 
   .product__card {
-    @apply w-60 mb-10;
+    @apply w-[250px] min-w-[180px] mb-10 mx-auto;
   }
 
   .products__user {
     @apply flex;
+  }
+
+  .product__title {
+    @apply text-center;
   }
 }

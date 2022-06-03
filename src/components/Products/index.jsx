@@ -42,7 +42,9 @@ const Products = (props) => {
                     className="product__image img-fluid shadow-4"
                   />
                 </div>
-                <div>{product.items[0].nameComplete}</div>
+                <div className="product__title">
+                  {product.items[0].nameComplete}
+                </div>
               </div>
             ))}
           </div>
