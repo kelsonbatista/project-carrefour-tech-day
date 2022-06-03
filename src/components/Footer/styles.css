@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .footer__navbar,
+  .footer__payment,
+  .footer__address,
+  .footer__small {
+    @apply w-11/12 mx-auto;
+  }
+
+  .footer__support {
+    @apply hidden h-[80px] sm:block sm:bg-[url('../../assets/images/suporte.png')] sm:bg-cover sm:bg-no-repeat sm:bg-center;
+  }
+
+  .footer__navbar {
+    @apply hidden sm:flex justify-between text-sm pt-10;
+  }
+
+  .footer__navbar ul li {
+    @apply py-1 text-gray-500;
+  }
+
+  .footer__navbar ul li:first-child {
+    @apply font-extrabold text-base text-black;
+  }
+
+  .footer__payment {
+    @apply hidden sm:flex justify-between pt-20 font-extrabold;
+  }
+
+  .footer__address {
+    @apply text-sm text-gray-500 py-20;
+  }
+
+  .footer__small {
+    @apply flex flex-col justify-center text-center text-sm text-gray-500 sm:hidden;
+  }
+
+  .footer__support2,
+  .footer__social {
+    @apply w-[200px] self-center;
+  }
+
+  .footer__social {
+    @apply pt-10;
+  }
+}
