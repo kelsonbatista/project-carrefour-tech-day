@@ -1,12 +1,11 @@
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
-import { AiOutlineDownCircle } from "react-icons/ai";
-import { IoLocationOutline } from "react-icons/io5";
 import { connect } from "react-redux";
 import "./assets/styles/app.css";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import Loading from "./components/Loading";
+import NavBar from "./components/NavBar";
 import Products from "./components/Products";
 import fetchGeolocationAPI from "./services/geolocationAPI";
 import fetchSellersAPI from "./services/sellersAPI";
@@ -14,15 +13,15 @@ import { setLoading, setProductsSeller, setUser } from "./store/actions";
 
 const App = (props) => {
   const { dispatchSeller, dispatchLoading, dispatchUser } = props;
-  const [seller, setSeller] = useState(null);
   const [postalcode, setPostalCode] = useState(null);
   const [borough, setBorough] = useState(null);
   const [city, setCity] = useState(null);
   const [country, setCountry] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [seller, setSeller] = useState("");
 
   const handleLocation = async () => {
-    console.log(isLoading, "isloadinggggggggggggggggg");
+    console.log(isLoading, "<<<<<<<<<< IS LOADING [1][A]");
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         getCoordinates,
@@ -43,12 +42,12 @@ const App = (props) => {
     setCity(location[2]);
     setPostalCode(() => location[3].trim());
     setCountry(location[4]);
-    console.log(borough, "<<<<<<<<<<BOROUGH");
+    console.log(borough, "<<<<<<<<<< BOROUGH [1]");
   };
 
   const getUserData = async () => {
     if (postalcode !== null) {
-      console.log(postalcode, "<<<<<<<<POSTAL");
+      console.log(postalcode, "<<<<<<<<<< POSTAL CODE [1][B]");
       await handleSellers(setIsLoading, "BRA", postalcode);
     }
   };
@@ -56,10 +55,10 @@ const App = (props) => {
   const handleSellers = async (setIsLoading, country, postalcode) => {
     const pc = await postalcode.replace("-", "");
     const getSellers = await fetchSellersAPI(setIsLoading, country, pc);
-    console.log(getSellers, "<<<<<<<<<<< GET SELLERS");
+    console.log(getSellers, "<<<<<<<<<< GET SELLERS [1]");
     const nearstSeller = getSellers[0];
     const sellerName = nearstSeller.name;
-    setSeller(() => sellerName);
+    setSeller(sellerName);
     dispatchSeller(sellerName);
     dispatchLoading(isLoading);
   };
@@ -85,7 +84,7 @@ const App = (props) => {
 
   useEffect(() => {
     handleLocation();
-    console.log(typeof postalcode, postalcode, "<<<<<<<<<<<<<<<<POSTAL CODE");
+    console.log(typeof postalcode, postalcode, "<<<<<<<<<< POSTAL CODE [1][A]");
   }, []);
 
   useEffect(() => {
@@ -102,38 +101,9 @@ const App = (props) => {
             <Loading />
           ) : (
             <>
-              <div className="products__navbar">
-                <div className="products__navbar-items">
-                  <ul>
-                    <li>Todos departamentos</li>
-                    <li>Ofertas do dia</li>
-                    <li>Mundo Gamer</li>
-                    <li>Smartphones</li>
-                    <li>Pneus & Auto</li>
-                    <li>Xiaomi</li>
-                    <li>Notebooks</li>
-                    <li>Eletrodomésticos</li>
-                  </ul>
-                </div>
-              </div>
-              <div className="products__seller">
-                <div className="products__seller-info">
-                  <div className="products__user">
-                    <div>
-                      <IoLocationOutline size="20px" />
-                    </div>
-                    <div>{`Ofertas para: ${city}${seller}`}</div>
-                    <div>
-                      <AiOutlineDownCircle
-                        className="products__newCep"
-                        size="20px"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div>{<Products />}</div>
-              {console.log(isLoading, "IS LOADING")}
+              <div>{<NavBar />}</div>
+              <div>{seller && <Products />}</div>
+              {console.log(isLoading, "<<<<<<<<<< IS LOADING [1][B]")}
             </>
           )}
         </section>
