@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .loading {
+    @apply flex justify-center align-middle my-10;
+  }
+}
