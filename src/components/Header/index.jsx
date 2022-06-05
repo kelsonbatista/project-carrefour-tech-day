@@ -1,9 +1,9 @@
 import PropTypes from "prop-types";
-import { useEffect, useState } from "react";
-import { Form, FormControl, InputGroup } from "react-bootstrap";
+import { useState } from "react";
+import { Button, Form, FormControl, InputGroup } from "react-bootstrap";
 import { AiOutlineMenu } from "react-icons/ai";
 import { BiUser } from "react-icons/bi";
-import { BsBoxSeam, BsCart2, BsHeart } from "react-icons/bs";
+import { BsBoxSeam, BsCart2, BsHeart, BsSearch } from "react-icons/bs";
 import { connect } from "react-redux";
 import bannerTop from "../../assets/images/banner-top-1.png";
 import logo from "../../assets/images/logo-carrefour-site.png";
@@ -14,14 +14,14 @@ const Header = (props) => {
   const { dispatchFilterProduct } = props;
   const [filterProduct, setFilterProduct] = useState("");
 
-  // const handleFilterProduct = (event) => {
-  //   event.preventDefault();
-  //   dispatchFilterProduct(filterProduct);
-  // };
-
-  useEffect(() => {
+  const handleFilterProduct = (event) => {
+    event.preventDefault();
     dispatchFilterProduct(filterProduct);
-  }, [filterProduct]);
+  };
+
+  // useEffect(() => {
+  //   dispatchFilterProduct(filterProduct);
+  // }, [filterProduct]);
 
   return (
     <header>
@@ -61,14 +61,14 @@ const Header = (props) => {
                 aria-describedby="basic-addon2"
                 value={filterProduct}
               />
-              {/* <Button
+              <Button
                 className="header__button btn btn-primary"
                 type="submit"
                 onClick={(event) => handleFilterProduct(event)}
                 id="basic-addon2"
               >
-                <GrSearch color="white" />
-              </Button> */}
+                <BsSearch color="white" />
+              </Button>
             </InputGroup>
           </Form>
         </div>
