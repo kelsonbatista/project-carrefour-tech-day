@@ -36,7 +36,7 @@
   }
 
   .header__button {
-    @apply h-[40px] bg-bg-blue-carrefour self-center mt-1;
+    @apply h-[40px] self-center mt-1 text-white bg-[#0D6EFD] !important;
   }
 
   .header__icons {
