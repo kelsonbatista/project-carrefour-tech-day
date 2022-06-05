@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .products__form label {
+    @apply mt-5;
+  }
+
+  .products__form-div {
+    @apply flex justify-between;
+  }
+
+  .products__input {
+    @apply w-[140px];
+  }
+
+  .products__button {
+    @apply w-[80px] text-white bg-[#0D6EFD] !important;
+  }
+}
