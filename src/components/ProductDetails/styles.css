@@ -1,0 +1,61 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .details__breadcrumb {
+    @apply flex justify-start align-middle mb-10;
+  }
+
+  .details__breadcrumb {
+    @apply w-11/12 mx-auto;
+  }
+
+  .details__item {
+    @apply w-11/12 lg:w-3/4 mx-auto;
+  }
+
+  .details__item {
+    @apply mx-auto flex flex-col justify-between align-middle mb-20 lg:flex-row;
+  }
+
+  .details__thumb {
+    @apply w-[320px] min-w-[180px] lg:min-w-[250px] lg:mb-0 mb-10 mx-auto;
+  }
+
+  .details__group {
+    @apply flex flex-col justify-between align-middle md:flex-row;
+  }
+
+  .details__info {
+    @apply max-w-[350px] self-center lg:min-w-[250px] mb-10 mr-0 md:mb-0 md:mr-20;
+  }
+
+  .details__info ul li:nth-child(1) {
+    @apply text-gray-800 text-xl mb-2;
+  }
+
+  .details__info ul li:nth-child(2) {
+    @apply text-sm mb-10;
+  }
+
+  .details__info ul li:nth-child(3) {
+    @apply text-bg-blue-carrefour text-3xl font-extrabold;
+  }
+
+  .details__purchase {
+    @apply self-center;
+  }
+
+  .details__button {
+    @apply w-[280px] bg-[#0D6EFD] !important;
+  }
+
+  .details__button:hover {
+    @apply bg-bg-blue-carrefour !important;
+  }
+
+  .details__button-text {
+    @apply flex flex-row justify-around align-middle py-3;
+  }
+}
