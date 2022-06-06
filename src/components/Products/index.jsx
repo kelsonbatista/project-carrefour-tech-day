@@ -6,6 +6,7 @@ import { useHistory } from "react-router-dom";
 import fetchProductsAPI from "../../services/productsAPI";
 import { setProducts } from "../../store/actions";
 import Loading from "../Loading";
+import ProductsCarousel from "../ProductsCarousel";
 import "./styles.css";
 
 const Products = (props) => {
@@ -52,6 +53,7 @@ const Products = (props) => {
 
   return (
     <>
+      <ProductsCarousel />
       {console.log(isLoading === true, "<<<<<<<<<< IS LOADING [2]")}
       {isLoading === true ? (
         <Loading />
