@@ -7,48 +7,43 @@ import Header from "./components/Header";
 import Loading from "./components/Loading";
 import NavBar from "./components/NavBar";
 import Products from "./components/Products";
-import fetchGeolocationAPI from "./services/geolocationAPI";
+import fetchGeoFromCEP from "./services/geoFromCEPAPI";
+import fetchGeoFromIP from "./services/geoFromIPAPI";
 import fetchSellersAPI from "./services/sellersAPI";
 import { setLoading, setProductsSeller, setUser } from "./store/actions";
 
 const App = (props) => {
-  const { dispatchSeller, dispatchLoading, dispatchUser } = props;
-  const [postalcode, setPostalCode] = useState(null);
-  const [borough, setBorough] = useState(null);
-  const [city, setCity] = useState(null);
-  const [country, setCountry] = useState(null);
+  const { dispatchSeller, dispatchLoading, dispatchUser, newPostalCode } =
+    props;
   const [isLoading, setIsLoading] = useState(true);
   const [seller, setSeller] = useState("");
+  const [postalcode, setPostalCode] = useState(null);
+  const [city, setCity] = useState(null);
+  const [state, setState] = useState(null);
+  const [country, setCountry] = useState(null);
 
-  const handleLocation = async () => {
-    console.log(isLoading, "<<<<<<<<<< IS LOADING [1][A]");
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        getCoordinates,
-        handleLocationError
-      );
-    } else {
-      alert("Geolocation is not supported by this browser.");
-    }
+  const handleLocationFromIP = async () => {
+    const data = await fetchGeoFromIP(setIsLoading);
+    setPostalCode(data.postal);
+    setCity(data.city);
+    setState(data.region);
+    setCountry(data.country);
+    console.log(data, "<<<<<<<<<<<<<<< DATA");
   };
 
-  const getCoordinates = async (position) => {
-    const response = await fetchGeolocationAPI(
-      position.coords.latitude,
-      position.coords.longitude
-    );
-    const location = response.split(",");
-    setBorough(location[1].split(" - ")[1]);
-    setCity(location[2]);
-    setPostalCode(() => location[3].trim());
-    setCountry(location[4]);
-    console.log(borough, "<<<<<<<<<< BOROUGH [1]");
+  const handleLocationFromCEP = async () => {
+    const data = await fetchGeoFromCEP(setIsLoading, newPostalCode);
+    setPostalCode(data.cep);
+    setCity(data.localidade);
+    setState(data.uf);
+    setCountry("Brasil");
+    console.log(data, "<<<<<<<<<<<<<<< DATA CEP");
   };
 
-  const getUserData = async () => {
-    if (postalcode !== null) {
-      console.log(postalcode, "<<<<<<<<<< POSTAL CODE [1][B]");
-      await handleSellers(setIsLoading, "BRA", postalcode);
+  const getUserData = async (userPostalCode) => {
+    if (userPostalCode !== null) {
+      console.log(userPostalCode, "<<<<<<<<<< POSTAL CODE [1][B]");
+      await handleSellers(setIsLoading, "BRA", userPostalCode);
     }
   };
 
@@ -56,41 +51,31 @@ const App = (props) => {
     const pc = await postalcode.replace("-", "");
     const getSellers = await fetchSellersAPI(setIsLoading, country, pc);
     console.log(getSellers, "<<<<<<<<<< GET SELLERS [1]");
-    const nearstSeller = getSellers[0];
-    const sellerName = nearstSeller.name;
+    const nearestSeller = getSellers[0];
+    const sellerName = nearestSeller.name;
     setSeller(sellerName);
     dispatchSeller(sellerName);
     dispatchLoading(isLoading);
   };
 
-  function handleLocationError(error) {
-    switch (error.code) {
-      case error.PERMISSION_DENIED:
-        alert("User denied the request for Geolocation.");
-        break;
-      case error.POSITION_UNAVAILABLE:
-        alert("Location information is unavailable.");
-        break;
-      case error.TIMEOUT:
-        alert("The request to get user location timed out.");
-        break;
-      case error.UNKNOWN_ERROR:
-        alert("An unknown error occurred.");
-        break;
-      default:
-        alert("An unknown error occurred.");
-    }
-  }
-
   useEffect(() => {
-    handleLocation();
+    handleLocationFromIP();
     console.log(typeof postalcode, postalcode, "<<<<<<<<<< POSTAL CODE [1][A]");
   }, []);
 
   useEffect(() => {
-    getUserData();
-    dispatchUser({ borough, city, postalcode, country });
+    getUserData(postalcode);
+    dispatchUser({ postalcode, newPostalCode, city, state, country });
   }, [postalcode]);
+
+  useEffect(() => {
+    if (newPostalCode) {
+      handleLocationFromCEP(setIsLoading, newPostalCode.split("-").join(""));
+      getUserData(newPostalCode);
+      dispatchUser({ postalcode, newPostalCode, city, state, country });
+    }
+    console.log(newPostalCode, "NEWWWWWWWWWWW");
+  }, [newPostalCode]);
 
   return (
     <>
@@ -119,10 +104,14 @@ App.propTypes = {
   dispatchUser: PropTypes.func,
 }.isRequired;
 
+const mapStateToProps = (state) => ({
+  newPostalCode: state.user.newPostalCode,
+});
+
 const mapDispatchToProps = (dispatch) => ({
   dispatchSeller: (seller) => dispatch(setProductsSeller(seller)),
   dispatchLoading: (loading) => dispatch(setLoading(loading)),
   dispatchUser: (user) => dispatch(setUser(user)),
 });
 
-export default connect(null, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
