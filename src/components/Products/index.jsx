@@ -11,7 +11,8 @@ import "./styles.css";
 const Products = (props) => {
   const [products, setProducts] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
-  const { seller, filter, dispatchProducts } = props;
+  const { seller, filter, newPostalCode, dispatchProducts } = props;
+  console.log(props, "<<<<<< PROPSSSSSSSSSSSSSSSSSSSSSSSS");
   const [isLoading, setIsLoading] = useState(true);
   const history = useHistory();
 
@@ -38,7 +39,7 @@ const Products = (props) => {
   useEffect(() => {
     console.log(seller, "<<<<<<<<<< SELLER USEEFFECT [2]");
     handleProducts();
-  }, [seller]);
+  }, [seller, newPostalCode]);
 
   useEffect(() => {
     console.log(filter, "<<<<<<<<<< FILTER [2]");
@@ -90,11 +91,13 @@ const Products = (props) => {
 Products.propTypes = {
   seller: PropTypes.string,
   filter: PropTypes.string,
+  newPostalCode: PropTypes.string,
 }.isRequired;
 
 const mapStateToProps = (state) => ({
   seller: state.seller,
   filter: state.products.filter,
+  newPostalCode: state.user.newPostalCode,
 });
 
 const mapDispatchToProps = (dispatch) => ({
