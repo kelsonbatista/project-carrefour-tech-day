@@ -1,10 +1,10 @@
 import { SET_NEW_POSTAL_CODE, SET_USER } from "../actions/userAction";
 
 const INITIAL_STATE = {
-  borough: "",
-  city: "",
   postalcode: "",
   newPostalCode: "",
+  city: "",
+  state: "",
   country: "",
 };
 
