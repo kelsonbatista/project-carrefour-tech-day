@@ -5,6 +5,7 @@ import { AiOutlineMenu } from "react-icons/ai";
 import { BiUser } from "react-icons/bi";
 import { BsBoxSeam, BsCart2, BsHeart, BsSearch } from "react-icons/bs";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import bannerTop from "../../assets/images/banner-top-1.png";
 import logo from "../../assets/images/logo-carrefour-site.png";
 import { setFilter } from "../../store/actions";
@@ -40,7 +41,9 @@ const Header = (props) => {
               size="30px"
               color="black"
             />
-            <img src={logo} alt="Carrefour" className="header__logo-img" />
+            <Link to="/">
+              <img src={logo} alt="Carrefour" className="header__logo-img" />
+            </Link>
           </div>
           <div className="header__icons-sm">
             <BiUser size="30px" color="blue" />
