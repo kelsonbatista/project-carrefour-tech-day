@@ -8,7 +8,7 @@
   }
 
   .product__card {
-    @apply w-[250px] min-w-[180px] mb-10 mx-auto;
+    @apply w-[170px] mb-10 mx-auto sm:w-[250px];
   }
 
   .products__user {
@@ -16,6 +16,6 @@
   }
 
   .product__title {
-    @apply text-center;
+    @apply text-sm text-center md:text-base;
   }
 }
