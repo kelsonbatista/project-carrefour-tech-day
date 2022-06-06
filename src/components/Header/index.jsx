@@ -46,10 +46,18 @@ const Header = (props) => {
             </Link>
           </div>
           <div className="header__icons-sm">
-            <BiUser size="30px" color="blue" />
-            <BsBoxSeam size="30px" color="blue" />
-            <BsHeart size="30px" color="blue" />
-            <BsCart2 size="30px" color="blue" />
+            <div>
+              <BiUser size="30px" color="blue" />
+            </div>
+            <div>
+              <BsBoxSeam size="30px" color="blue" />
+            </div>
+            <div>
+              <BsHeart size="30px" color="blue" />
+            </div>
+            <div>
+              <BsCart2 size="30px" color="blue" />
+            </div>
           </div>
         </div>
         <div className="header__search">
@@ -76,10 +84,18 @@ const Header = (props) => {
           </Form>
         </div>
         <div className="header__icons">
-          <BiUser size="30px" color="blue" />
-          <BsBoxSeam size="30px" color="blue" />
-          <BsHeart size="30px" color="blue" />
-          <BsCart2 size="30px" color="blue" />
+          <div>
+            <BiUser size="30px" color="blue" />
+          </div>
+          <div>
+            <BsBoxSeam size="30px" color="blue" />
+          </div>
+          <div>
+            <BsHeart size="30px" color="blue" />
+          </div>
+          <div>
+            <BsCart2 size="30px" color="blue" />
+          </div>
         </div>
       </section>
     </header>
