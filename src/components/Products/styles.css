@@ -6,16 +6,4 @@
   .products__all {
     @apply w-11/12 mx-auto flex justify-between flex-wrap;
   }
-
-  .product__card {
-    @apply w-[170px] mb-10 mx-auto sm:w-[250px];
-  }
-
-  .products__user {
-    @apply flex;
-  }
-
-  .product__title {
-    @apply text-sm text-center md:text-base;
-  }
 }
