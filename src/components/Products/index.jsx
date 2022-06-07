@@ -1,21 +1,23 @@
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
-import { Image } from "react-bootstrap";
 import { connect } from "react-redux";
-import { useHistory } from "react-router-dom";
+// import { useHistory } from "react-router-dom";
 import fetchProductsAPI from "../../services/productsAPI";
 import { setProducts } from "../../store/actions";
 import Loading from "../Loading";
+import ProductCard from "../ProductCard";
 import ProductsCarousel from "../ProductsCarousel";
 import "./styles.css";
 
 const Products = (props) => {
   const [products, setProducts] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
+  // const [quantity, setQuantity] = useState(0);
+  // const [cart, setCart] = useState([]);
   const { seller, filter, newPostalCode, dispatchProducts } = props;
   console.log(props, "<<<<<< PROPSSSSSSSSSSSSSSSSSSSSSSSS");
   const [isLoading, setIsLoading] = useState(true);
-  const history = useHistory();
+  // const history = useHistory();
 
   console.log(seller, "<<<<<<<<<< SELLER PROD [2]");
   console.log(filter, "<<<<<<<<<< SELLER PROD FILTER [2]");
@@ -47,10 +49,6 @@ const Products = (props) => {
     handleFilteredData(filter);
   }, [filter]);
 
-  // useEffect(() => {
-  //   console.log(filteredData, "<<<<<<<<<<<<<FILTERED");
-  // }, [filteredData]);
-
   return (
     <>
       <ProductsCarousel />
@@ -61,27 +59,7 @@ const Products = (props) => {
         <>
           <div className="products__all">
             {filteredData.map((product, index) => (
-              <div key={product.productId} className="product__card">
-                <div>
-                  <button
-                    key={index}
-                    type="button"
-                    className="product__button"
-                    onClick={() =>
-                      history.push(`/product/${product.items[0].itemId}`)
-                    }
-                  >
-                    <Image
-                      src={product.items[0].images[0].imageUrl}
-                      alt={product.items[0].nameComplete}
-                      className="product__image img-fluid shadow-4"
-                    />
-                  </button>
-                </div>
-                <div className="product__title">
-                  {product.items[0].nameComplete}
-                </div>
-              </div>
+              <ProductCard key={index} product={product} index={index} />
             ))}
           </div>
         </>
