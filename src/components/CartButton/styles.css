@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .cart__btn-div {
+    @apply flex justify-end relative;
+  }
+
+  .cart__btn-qty {
+    @apply bg-green-600 text-white rounded-xl justify-center align-middle flex text-xs font-extrabold h-[18px] absolute  text-center right-[-3px] top-[-3px] w-[18px];
+  }
+}
