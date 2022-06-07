@@ -3,12 +3,13 @@ import { useState } from "react";
 import { Button, Form, FormControl, InputGroup } from "react-bootstrap";
 import { AiOutlineMenu } from "react-icons/ai";
 import { BiUser } from "react-icons/bi";
-import { BsBoxSeam, BsCart2, BsHeart, BsSearch } from "react-icons/bs";
+import { BsBoxSeam, BsHeart, BsSearch } from "react-icons/bs";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import bannerTop from "../../assets/images/banner-top-1.png";
 import logo from "../../assets/images/logo-carrefour-site.png";
 import { setFilter } from "../../store/actions";
+import CartButton from "../CartButton";
 import "./styles.css";
 
 const Header = (props) => {
@@ -56,7 +57,7 @@ const Header = (props) => {
               <BsHeart size="30px" color="blue" />
             </div>
             <div>
-              <BsCart2 size="30px" color="blue" />
+              <CartButton />
             </div>
           </div>
         </div>
@@ -94,7 +95,7 @@ const Header = (props) => {
             <BsHeart size="30px" color="blue" />
           </div>
           <div>
-            <BsCart2 size="30px" color="blue" />
+            <CartButton />
           </div>
         </div>
       </section>
