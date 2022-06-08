@@ -1,9 +1,15 @@
-import { SET_CART, SET_FILTER, SET_PRODUCTS } from "../actions/productAction";
+import {
+  SET_CART,
+  SET_CART_TOTAL,
+  SET_FILTER,
+  SET_PRODUCTS,
+} from "../actions/productAction";
 
 const INITIAL_STATE = {
   list: [],
   filter: "",
   cart: [],
+  cartTotal: [],
 };
 
 const productsReducer = (state = INITIAL_STATE, action) => {
@@ -22,6 +28,11 @@ const productsReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         cart: action.payload,
+      };
+    case SET_CART_TOTAL:
+      return {
+        ...state,
+        cartTotal: action.payload,
       };
     default:
       return state;

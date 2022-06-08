@@ -1,5 +1,5 @@
 import setLoading from "./loadingAction";
-import { setCart, setFilter, setProducts } from "./productAction";
+import { setCart, setCartTotal, setFilter, setProducts } from "./productAction";
 import setProductsSeller from "./sellerAction";
 import { setNewPostalCode, setUser } from "./userAction";
 
@@ -8,6 +8,7 @@ export {
   setLoading,
   setProducts,
   setCart,
+  setCartTotal,
   setUser,
   setNewPostalCode,
   setFilter,
