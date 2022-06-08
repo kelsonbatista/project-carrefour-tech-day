@@ -12,7 +12,7 @@
   }
 
   .products__navbar-items ul {
-    @apply hidden  flex justify-around self-center w-11/12 h-[40px] mx-auto sm:flex sm:text-xs md:text-sm;
+    @apply hidden  sm:flex justify-around self-center w-11/12 h-[40px] mx-auto sm:text-xs md:text-sm;
   }
 
   .products__navbar-items ul li {
