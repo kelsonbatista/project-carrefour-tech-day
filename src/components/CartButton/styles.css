@@ -8,6 +8,10 @@
   }
 
   .cart__btn-qty {
-    @apply bg-green-600 text-white rounded-xl justify-center align-middle flex text-xs font-extrabold h-[18px] absolute  text-center right-[-3px] top-[-3px] w-[18px];
+    @apply bg-green-600 text-white rounded-xl justify-center align-middle flex font-extrabold h-[18px] absolute  text-center right-[-3px] top-[-3px] w-[18px];
+  }
+
+  .cart__btn-qty p {
+    @apply text-[10px] mt-[1px];
   }
 }
