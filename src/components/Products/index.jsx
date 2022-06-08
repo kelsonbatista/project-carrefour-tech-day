@@ -10,7 +10,7 @@ import ProductsCarousel from "../ProductsCarousel";
 import "./styles.css";
 
 const Products = (props) => {
-  const [products, setProducts] = useState([]);
+  const [products, setProductsState] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   // const [quantity, setQuantity] = useState(0);
   // const [cart, setCart] = useState([]);
@@ -33,7 +33,7 @@ const Products = (props) => {
     const { data } = await fetchProductsAPI(setIsLoading, seller);
     await data.sort(() => Math.random() - 0.5);
     console.log(await data, "<<<<<<<<<< SHUFFLE [2]");
-    setProducts(() => data);
+    setProductsState(() => data);
     setFilteredData(() => data);
     dispatchProducts(data);
   };
