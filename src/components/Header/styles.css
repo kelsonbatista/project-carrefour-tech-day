@@ -4,6 +4,10 @@
 
 @layer components {
   .header {
+    @apply bg-white z-20;
+  }
+
+  .header__group {
     @apply w-11/12 py-1 mx-auto h-[130px] flex-nowrap justify-between align-middle md:flex md:h-[80px];
   }
 
