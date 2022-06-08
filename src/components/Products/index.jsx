@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { connect } from "react-redux";
 // import { useHistory } from "react-router-dom";
 import fetchProductsAPI from "../../services/productsAPI";
-import { setCartTotal, setProducts } from "../../store/actions";
+import { setProducts } from "../../store/actions";
 import Loading from "../Loading";
 import ProductCard from "../ProductCard";
 import ProductsCarousel from "../ProductsCarousel";
@@ -14,14 +14,7 @@ const Products = (props) => {
   const [filteredData, setFilteredData] = useState([]);
   // const [quantity, setQuantity] = useState(0);
   // const [cart, setCart] = useState([]);
-  const {
-    seller,
-    filter,
-    cartQty,
-    newPostalCode,
-    dispatchProducts,
-    dispatchCartTotal,
-  } = props;
+  const { seller, filter, newPostalCode, dispatchProducts } = props;
   console.log(props, "<<<<<< PROPSSSSSSSSSSSSSSSSSSSSSSSS");
   const [isLoading, setIsLoading] = useState(true);
   // const history = useHistory();
@@ -45,19 +38,6 @@ const Products = (props) => {
     );
     setFilteredData(filteredData);
   };
-
-  const getCart = () => {
-    const cart = localStorage["carrefour-cart"]
-      ? JSON.parse(localStorage["carrefour-cart"])
-      : [];
-    const total = cart && cart.reduce((acc, item) => acc + item.price);
-    const qty = cart && cart.reduce((acc, item) => acc + item.qty);
-    dispatchCartTotal({ total, qty });
-  };
-
-  useEffect(() => {
-    getCart();
-  }, [cartQty]);
 
   useEffect(() => {
     console.log(seller, "<<<<<<<<<< SELLER USEEFFECT [2]");
@@ -91,20 +71,17 @@ const Products = (props) => {
 Products.propTypes = {
   seller: PropTypes.string,
   filter: PropTypes.string,
-  cartQty: PropTypes.object,
   newPostalCode: PropTypes.string,
 }.isRequired;
 
 const mapStateToProps = (state) => ({
   seller: state.seller,
   filter: state.products.filter,
-  cartQty: state.products.cart.qty,
   newPostalCode: state.user.newPostalCode,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   dispatchProducts: (products) => dispatch(setProducts(products)),
-  dispatchCartTotal: (total) => dispatch(setCartTotal(total)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Products);

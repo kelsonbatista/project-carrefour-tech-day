@@ -2,15 +2,22 @@ import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import { Button, Form, FormControl, Image, InputGroup } from "react-bootstrap";
 import { connect } from "react-redux";
-import { setCart } from "../../store/actions";
+import { setCart, setCartTotal } from "../../store/actions";
 import "./styles.css";
 
 const ProductCard = (props) => {
-  const { product, index, dispatchCart } = props;
+  const { product, index, dispatchCart, dispatchCartTotal } = props;
   const [itemQty, setItemQty] = useState(0);
   const [subTotal, setSubTotal] = useState(0);
+  const [getItemQty, setGetItemQty] = useState(0);
   const [update, setUpdate] = useState(false);
   const [hasProducts, setHasProducts] = useState(false);
+
+  useEffect(() => {
+    console.log("############### UPDATE ################");
+    getCart();
+    updateCart();
+  }, [subTotal, itemQty]);
 
   const productData = {
     id: product.items[0].itemId,
@@ -29,8 +36,8 @@ const ProductCard = (props) => {
       price: productData.price.toFixed(2),
       qty: 1,
     });
-    setItemQty((prev) => prev + 1);
-    setSubTotal((prev) => prev + Number(productData.price.toFixed(2)));
+    setItemQty((prev) => Number(prev) + 1);
+    setSubTotal((prev) => Number(prev) + Number(productData.price.toFixed(2)));
     localStorage.setItem("carrefour-cart", JSON.stringify(newCart));
     newCart.length > 0 ? setHasProducts(true) : setHasProducts(false);
   };
@@ -53,12 +60,14 @@ const ProductCard = (props) => {
       : [];
     const itemIndex =
       cart && cart.findIndex((item) => item.id === productData.id);
-    console.log(itemIndex, "<<<<INDEX");
     if (cart.length > 0 && update) {
-      cart[itemIndex].price = subTotal;
-      cart[itemIndex].qty = itemQty;
+      cart[itemIndex].price = Number(subTotal);
+      cart[itemIndex].qty = Number(itemQty);
       dispatchCart({ subTotal, itemQty });
-    } else {
+    } else if (itemIndex >= 0) {
+      const qty = cart[itemIndex].qty !== undefined && cart[itemIndex].qty;
+      setItemQty(qty);
+      setGetItemQty(qty);
       setHasProducts(false);
     }
     localStorage.setItem("carrefour-cart", JSON.stringify(cart));
@@ -66,9 +75,26 @@ const ProductCard = (props) => {
     itemIndex >= 0 ? setHasProducts(true) : setHasProducts(false);
   };
 
-  useEffect(() => {
-    updateCart();
-  }, [subTotal, itemQty]);
+  const getCart = () => {
+    const cart = localStorage["carrefour-cart"]
+      ? JSON.parse(localStorage["carrefour-cart"])
+      : [];
+    if (cart.length > 0) {
+      console.log(cart, "<<<<<<<<<<<<<<<<<<< CART");
+      const total =
+        cart &&
+        cart.reduce((acc, item) => {
+          return acc + Number(item.price);
+        }, 0);
+      const qty =
+        cart &&
+        cart.reduce((acc, item) => {
+          return acc + item.qty;
+        }, 0);
+      console.log(total, qty, "<<<<<<<<<<<<<<<< GET CART");
+      dispatchCartTotal({ total, qty });
+    }
+  };
 
   return (
     <div key={product.productId} className="product__card">
@@ -96,6 +122,7 @@ const ProductCard = (props) => {
           )}`}
         </div>
       </div>
+      <div className="test">{`getitem ${getItemQty}`}</div>
       {!hasProducts && (
         <div className="product__add-div">
           <button
@@ -156,6 +183,7 @@ ProductCard.propTypes = {
 
 const mapDispatchToProps = (dispatch) => ({
   dispatchCart: (cart) => dispatch(setCart(cart)),
+  dispatchCartTotal: (total) => dispatch(setCartTotal(total)),
 });
 
 export default connect(null, mapDispatchToProps)(ProductCard);
