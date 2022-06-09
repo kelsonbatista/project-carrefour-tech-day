@@ -1,5 +1,6 @@
 import {
   SET_CART,
+  SET_CART_OPEN,
   SET_CART_TOTAL,
   SET_FILTER,
   SET_PRODUCTS,
@@ -10,6 +11,7 @@ const INITIAL_STATE = {
   filter: "",
   cart: [],
   cartTotal: [],
+  cartOpen: false,
 };
 
 const productsReducer = (state = INITIAL_STATE, action) => {
@@ -33,6 +35,11 @@ const productsReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         cartTotal: action.payload,
+      };
+    case SET_CART_OPEN:
+      return {
+        ...state,
+        cartOpen: action.payload,
       };
     default:
       return state;
