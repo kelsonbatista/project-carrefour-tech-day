@@ -2,14 +2,20 @@ import PropTypes from "prop-types";
 import { BsCart2 } from "react-icons/bs";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import { setCartOpen } from "../../store/actions";
 import "./styles.css";
 
 const CartButton = (props) => {
-  const { cartQty } = props;
+  const { cartQty, dispatchCartOpen } = props;
 
   return (
     <div className="cart__btn-div">
-      <Link to="/" className="cart__btn" data-testid="shopping-cart-button">
+      <Link
+        to="#"
+        className="cart__btn"
+        data-testid="shopping-cart-button"
+        onClick={() => dispatchCartOpen(true)}
+      >
         <BsCart2 size="30px" color="blue" />
       </Link>
       {cartQty && cartQty !== "0" && (
@@ -29,4 +35,8 @@ const mapStateToProps = (state) => ({
   cartQty: state.products.cartTotal.qty,
 });
 
-export default connect(mapStateToProps, null)(CartButton);
+const mapDispatchToProps = (dispatch) => ({
+  dispatchCartOpen: (open) => dispatch(setCartOpen(open)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(CartButton);
