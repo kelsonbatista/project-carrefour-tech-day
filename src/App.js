@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import "./assets/styles/app.css";
+import CartSideBar from "./components/CartSideBar";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import Loading from "./components/Loading";
@@ -88,6 +89,7 @@ const App = (props) => {
             <>
               <div>{<NavBar />}</div>
               <div>{seller && <Products />}</div>
+              <div>{<CartSideBar />}</div>
               {console.log(isLoading, "<<<<<<<<<< IS LOADING [1][B]")}
             </>
           )}
