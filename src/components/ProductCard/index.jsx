@@ -23,6 +23,7 @@ const ProductCard = (props) => {
     id: product.items[0].itemId,
     title: product.items[0].nameComplete,
     price: product.items[0].sellers[0].commertialOffer.PriceWithoutDiscount,
+    url: product.items[0].images[0].imageUrl,
   };
 
   const handleAddToCart = () => {
@@ -35,6 +36,7 @@ const ProductCard = (props) => {
       title: productData.title,
       price: productData.price.toFixed(2),
       qty: 1,
+      url: productData.url,
     });
     setItemQty((prev) => Number(prev) + 1);
     setSubTotal((prev) => Number(prev) + Number(productData.price.toFixed(2)));
