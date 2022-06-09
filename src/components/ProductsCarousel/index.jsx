@@ -38,7 +38,7 @@ const ProductsCarousel = () => {
       responsive={responsive}
       ssr={true} // means to render carousel on server-side.
       infinite={true}
-      autoPlay={false}
+      autoPlay={true}
       autoPlaySpeed={0}
       keyBoardControl={true}
       customTransition="all .5"
