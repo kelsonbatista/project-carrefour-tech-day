@@ -1,0 +1,82 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .cartsidebar {
+    @apply bg-white
+    min-w-[270px] w-[320px] right-[-320px] text-[13px]
+    md:min-w-[300px] md:w-[350px] md:right-[-350px] md:text-sm
+    lg:min-w-[330px] lg:w-[430px] lg:right-[-430px]
+    mx-auto h-[100vh] fixed top-0 z-20 transition-all;
+  }
+
+  .cartsidebar.active {
+    @apply right-0;
+  }
+
+  .cartsidebar__item {
+    @apply flex justify-start align-middle w-5/6 mx-auto pb-5;
+  }
+
+  .cartsidebar__items {
+    @apply pt-14 pb-8;
+  }
+
+  .cartsidebar__image {
+    @apply w-[50px] mr-5;
+  }
+
+  .cartsidebar__title {
+    @apply w-[60%] self-center;
+  }
+
+  .cartsidebar__qty {
+    @apply w-[15%] text-center self-center;
+  }
+
+  .cartsidebar__price {
+    @apply w-[25%] text-right self-center text-bg-blue-carrefour font-bold;
+  }
+
+  .cartsidebar__close,
+  .cartsidebar__close:hover,
+  .cartsidebar__close:active,
+  .cartsidebar__close:focus,
+  .cartsidebar__close:active:focus {
+    @apply absolute top-6 left-6 text-white;
+  }
+
+  .cartsidebar__top {
+    @apply bg-bg-blue-carrefour py-6 text-right pr-10 text-xl font-black text-white;
+  }
+
+  .cartsidebar__bottom {
+    @apply bottom-0 absolute w-[100%] mb-8;
+  }
+
+  .cartsidebar__summary {
+    @apply flex justify-between w-5/6 mx-auto;
+  }
+
+  .cartsidebar__qty-total {
+    @apply w-[50%] text-left self-center;
+  }
+
+  .cartsidebar__total {
+    @apply text-right text-bg-blue-carrefour font-extrabold text-xl self-center;
+  }
+
+  .cartsidebar__checkout {
+    @apply flex justify-center;
+  }
+
+  .cartsidebar__checkout-btn {
+    @apply w-5/6 mt-6;
+  }
+
+  .cartsidebar__checkout-btn,
+  .cartsidebar__checkout-btn:active {
+    @apply bg-green-600 !important;
+  }
+}
