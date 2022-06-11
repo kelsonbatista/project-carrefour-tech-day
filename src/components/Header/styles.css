@@ -4,7 +4,11 @@
 
 @layer components {
   .header {
-    @apply bg-white z-20;
+    @apply bg-white block z-20 w-full shadow-xl;
+  }
+
+  .stickee {
+    @apply fixed top-0;
   }
 
   .header__group {
@@ -13,6 +17,10 @@
 
   .header__banner {
     @apply h-[80px] bg-[url('../../assets/images/banner_topo.gif')] bg-no-repeat bg-center sm:bg-none sm:h-[48px];
+  }
+
+  .header__banner-sticky {
+    @apply mb-[80px];
   }
 
   .header__banner-top {

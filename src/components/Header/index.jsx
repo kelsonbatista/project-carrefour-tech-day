@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button, Form, FormControl, InputGroup } from "react-bootstrap";
 import { AiOutlineMenu } from "react-icons/ai";
 import { BiUser } from "react-icons/bi";
@@ -15,11 +15,52 @@ import "./styles.css";
 const Header = (props) => {
   const { dispatchFilterProduct } = props;
   const [filterProduct, setFilterProduct] = useState("");
+  const [height, setHeight] = useState(0);
+  const [scrolltop, setScrolltop] = useState(0);
+  const [resize, setResize] = useState(0);
+  const [margin, setMargin] = useState(0);
+  const refHeaderBanner = useRef();
+  const refHeader = useRef();
 
   const handleFilterProduct = (event) => {
     event.preventDefault();
     dispatchFilterProduct(filterProduct);
   };
+
+  const handleScroll = (event) => {
+    const scrollTop = window.scrollY;
+    setScrolltop(scrollTop);
+  };
+
+  const handleResize = (event) => {
+    const newWidth = window.innerWidth;
+    setResize(newWidth);
+  };
+
+  useEffect(() => {
+    const heightBanner = refHeaderBanner.current.clientHeight;
+    setHeight(heightBanner);
+    const height = refHeader.current.clientHeight;
+    const heightTotal = 200 + heightBanner + height;
+    setMargin(heightTotal);
+    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("resize", handleResize);
+  }, []);
+
+  useEffect(() => {
+    const height = refHeaderBanner.current.clientHeight;
+    setHeight(height);
+  }, [resize]);
+
+  useEffect(
+    (prevProps, prevState) => {
+      const scrollTop2 = window.pageYOffset;
+      if (scrollTop2 !== ((prevState) => prevState.scrolltop)) {
+        setScrolltop(scrollTop2);
+      }
+    },
+    [scrolltop]
+  );
 
   // useEffect(() => {
   //   dispatchFilterProduct(filterProduct);
@@ -27,14 +68,27 @@ const Header = (props) => {
 
   return (
     <header>
-      <section className="header__banner">
+      {console.log(margin, "marginnnnn")}
+      <section
+        className={
+          scrolltop > height
+            ? "header__banner header__banner-sticky"
+            : "header__banner"
+        }
+        styles="margin-bottom: 350px"
+        ref={refHeaderBanner}
+      >
         <img
           src={bannerTop}
           alt="Banner Promo"
           className="header__banner-top"
         />
       </section>
-      <section className="header">
+      {console.log(scrolltop, height, "KKKKKKKKKKKKKKKKKKKKK")}
+      <section
+        className={scrolltop > height ? "header stickee" : "header"}
+        ref={refHeader}
+      >
         <div className="header__group">
           <div className="header__logo">
             <div className="header__menu">
