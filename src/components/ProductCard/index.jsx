@@ -85,9 +85,11 @@ const ProductCard = (props) => {
       console.log(cart, "<<<<<<<<<<<<<<<<<<< CART");
       const total =
         cart &&
-        cart.reduce((acc, item) => {
-          return acc + Number(item.price);
-        }, 0);
+        cart
+          .reduce((acc, item) => {
+            return acc + Number(item.price);
+          }, 0)
+          .toFixed(2);
       const qty =
         cart &&
         cart.reduce((acc, item) => {
