@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Switch, withRouter } from "react-router-dom";
 import App from "../App";
-import NotFound from "../components/NotFound";
+import NotFoundPage from "../pages/NotFound";
 import Product from "../pages/Product";
 
 const RoutesApp = () => {
@@ -9,7 +9,7 @@ const RoutesApp = () => {
     <Switch>
       <Route exact path="/" component={App} />
       <Route exact path="/product/:productId" component={Product} />
-      <Route path="*" component={NotFound} />
+      <Route path="*" component={NotFoundPage} />
     </Switch>
   );
 };

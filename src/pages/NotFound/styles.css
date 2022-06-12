@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .notfound {
+    @apply w-11/12 mx-auto flex-col text-center my-[170px] text-3xl;
+  }
+}
