@@ -104,12 +104,6 @@ const Header = (props) => {
                 <BiUser size="30px" color="blue" />
               </div>
               <div>
-                <BsBoxSeam size="30px" color="blue" />
-              </div>
-              <div>
-                <BsHeart size="30px" color="blue" />
-              </div>
-              <div>
                 <CartButton />
               </div>
             </div>
