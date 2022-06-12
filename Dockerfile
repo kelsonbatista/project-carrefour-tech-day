@@ -6,13 +6,13 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 COPY . .
-RUN npm run build
-#CMD ["npm", "start"]
+#RUN npm run build
+CMD ["npm", "start"]
 
 # Stage 2
 #based on Nginx, to have only the compiled app, ready for production with Nginx
-FROM nginx:stable-alpine
-COPY --from=development /app/build /usr/share/nginx/html
+#FROM nginx:stable-alpine
+#COPY --from=development /app/build /usr/share/nginx/html
 # Copy the default nginx.conf provided by node
 #COPY --from=development /nginx.conf /etc/nginx/conf.d/default.conf
 #EXPOSE 80
