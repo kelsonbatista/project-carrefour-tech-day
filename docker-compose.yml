@@ -1,0 +1,32 @@
+version: "3.8"
+
+services:
+  # Serviço que irá rodar o node
+  app:
+    # Executa o dockerfile
+    build:
+      context: .
+      target: development
+    # Nome do container para facilitar execução
+    container_name: carrefour-dev
+    # Imagem base do container (ou nome)
+    image: carrefour-dev-img
+    # Lista de volumes (diretórios) mapeados de fora para dentro do container
+    volumes:
+      # Monta o diretório atual, com todos os dados do projeto,
+      # dentro do diretório /app
+      - ./:/app
+    ports:
+      # Expõe a porta padrão da aplicação: altere aqui caso use outra porta
+      - 5000:80
+    # Diretório padrão de execução
+    working_dir: /app
+    # Mesmo que `docker run -t`
+    tty: true
+    # Mesmo que `docker run -i`
+    stdin_open: true
+    # Substitui o comando padrão da imagem do node
+    #command: bash
+    #command: npm start
+    # Restarta a imagem caso algo a faça parar
+    restart: always
