@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import { Button, Form, FormControl, Image, InputGroup } from "react-bootstrap";
 import { connect } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { setCart, setCartTotal } from "../../store/actions";
 import "./styles.css";
 
@@ -12,9 +13,9 @@ const ProductCard = (props) => {
   const [getItemQty, setGetItemQty] = useState(0);
   const [update, setUpdate] = useState(false);
   const [hasProducts, setHasProducts] = useState(false);
+  const history = useHistory();
 
   useEffect(() => {
-    console.log(subTotal, itemQty, "############### UPDATE ################");
     updateCart();
     getCart();
     handleZero();
@@ -87,10 +88,8 @@ const ProductCard = (props) => {
   const handleZero = () => {
     if (itemQty === 0 && hasProducts) {
       getCart();
-      console.log(itemQty, "ZEROOOOOOO<<<<<<<<<<<<<<<<<<<<");
       const cart = JSON.parse(localStorage.getItem("carrefour-cart"));
       const newCart = cart.filter((item) => item.id !== productData.id);
-      console.log(newCart, productData.id, "ZEROOOOOOO<<<<CARTTT<<<<<<<<<<");
       localStorage.setItem("carrefour-cart", JSON.stringify(newCart));
       setHasProducts(false);
     }
@@ -101,7 +100,6 @@ const ProductCard = (props) => {
       ? JSON.parse(localStorage["carrefour-cart"])
       : [];
     if (cart.length > 0) {
-      console.log(cart, "<<<<<<<<<<<<<<<<<<< CART");
       const total =
         cart &&
         cart.reduce((acc, item) => {
@@ -113,7 +111,6 @@ const ProductCard = (props) => {
         cart.reduce((acc, item) => {
           return acc + item.qty;
         }, 0);
-      console.log(total, qty, "<<<<<<<<<<<<<<<< GET CART");
       dispatchCartTotal({ total: newTotal, qty });
     } else {
       const total = 0;
