@@ -33,7 +33,8 @@ _Esse é projeto é um desafio proposto pelo Carrefour Tech Day, onde o objeto �
 See it in action/ **Veja em ação**: [https://carrefourtech.herokuapp.com/](https://carrefourtech.herokuapp.com/)
 
 Commands:
-git clone git@github.com:kelsonbatista/project-carrefour-tech-day.git
-docker build -t carrefour-dev-img .
-docker run -d -it -p 5000:80/tcp --name carrefour-dev carrefour-dev-img
-Access http://localhost:5000
+
+- git clone git@github.com:kelsonbatista/project-carrefour-tech-day.git
+- docker build -t carrefour-dev-img .
+- docker run -d -it -p 5000:80/tcp --name carrefour-dev carrefour-dev-img
+- Access http://localhost:5000
