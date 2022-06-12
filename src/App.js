@@ -29,7 +29,6 @@ const App = (props) => {
     setCity(data.city);
     setState(data.region);
     setCountry(data.country);
-    console.log(data, "<<<<<<<<<<<<<<< DATA");
   };
 
   const handleLocationFromCEP = async () => {
@@ -38,12 +37,10 @@ const App = (props) => {
     setCity(data.localidade);
     setState(data.uf);
     setCountry("Brasil");
-    console.log(data, "<<<<<<<<<<<<<<< DATA CEP");
   };
 
   const getUserData = async (userPostalCode) => {
     if (userPostalCode !== null) {
-      console.log(userPostalCode, "<<<<<<<<<< POSTAL CODE [1][B]");
       await handleSellers(setIsLoading, "BRA", userPostalCode);
     }
   };
@@ -51,7 +48,6 @@ const App = (props) => {
   const handleSellers = async (setIsLoading, country, postalcode) => {
     const pc = await postalcode.replace("-", "");
     const getSellers = await fetchSellersAPI(setIsLoading, country, pc);
-    console.log(getSellers, "<<<<<<<<<< GET SELLERS [1]");
     const nearestSeller = getSellers[0];
     const sellerName = nearestSeller.name;
     setSeller(sellerName);
@@ -61,7 +57,6 @@ const App = (props) => {
 
   useEffect(() => {
     handleLocationFromIP();
-    console.log(typeof postalcode, postalcode, "<<<<<<<<<< POSTAL CODE [1][A]");
   }, []);
 
   useEffect(() => {
@@ -75,7 +70,6 @@ const App = (props) => {
       getUserData(newPostalCode);
       dispatchUser({ postalcode, newPostalCode, city, state, country });
     }
-    console.log(newPostalCode, "NEWWWWWWWWWWW");
   }, [newPostalCode]);
 
   return (
@@ -90,7 +84,6 @@ const App = (props) => {
               <div>{<NavBar />}</div>
               <div>{seller && <Products />}</div>
               <div>{<CartSideBar />}</div>
-              {console.log(isLoading, "<<<<<<<<<< IS LOADING [1][B]")}
             </>
           )}
         </section>

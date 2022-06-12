@@ -15,24 +15,18 @@ const Products = (props) => {
   // const [quantity, setQuantity] = useState(0);
   // const [cart, setCart] = useState([]);
   const { seller, filter, newPostalCode, dispatchProducts } = props;
-  console.log(props, "<<<<<< PROPSSSSSSSSSSSSSSSSSSSSSSSS");
   const [isLoading, setIsLoading] = useState(true);
   // const history = useHistory();
-
-  console.log(seller, "<<<<<<<<<< SELLER PROD [2]");
-  console.log(filter, "<<<<<<<<<< SELLER PROD FILTER [2]");
 
   const handleProducts = async () => {
     const { data } = await fetchProductsAPI(setIsLoading, seller);
     await data.sort(() => Math.random() - 0.5);
-    console.log(await data, "<<<<<<<<<< SHUFFLE [2]");
     setProductsState(() => data);
     setFilteredData(() => data);
     dispatchProducts(data);
   };
 
   const handleFilteredData = (filter) => {
-    console.log(filter, "<<<<<<<<<< HANDLE FILTER [2]");
     const filteredData = products.filter((product) =>
       product.items[0].nameComplete.toLowerCase().includes(filter.toLowerCase())
     );
@@ -40,19 +34,16 @@ const Products = (props) => {
   };
 
   useEffect(() => {
-    console.log(seller, "<<<<<<<<<< SELLER USEEFFECT [2]");
     handleProducts();
   }, [seller, newPostalCode]);
 
   useEffect(() => {
-    console.log(filter, "<<<<<<<<<< FILTER [2]");
     handleFilteredData(filter);
   }, [filter]);
 
   return (
     <>
       <ProductsCarousel />
-      {console.log(isLoading === true, "<<<<<<<<<< IS LOADING [2]")}
       {isLoading === true ? (
         <Loading />
       ) : (

@@ -18,7 +18,7 @@ const Header = (props) => {
   const [height, setHeight] = useState(0);
   const [scrolltop, setScrolltop] = useState(0);
   const [resize, setResize] = useState(0);
-  const [margin, setMargin] = useState(0);
+  // const [margin, setMargin] = useState(0);
   const refHeaderBanner = useRef();
   const refHeader = useRef();
 
@@ -40,9 +40,9 @@ const Header = (props) => {
   useEffect(() => {
     const heightBanner = refHeaderBanner.current.clientHeight;
     setHeight(heightBanner);
-    const height = refHeader.current.clientHeight;
-    const heightTotal = 200 + heightBanner + height;
-    setMargin(heightTotal);
+    // const height = refHeader.current.clientHeight;
+    // const heightTotal = 200 + heightBanner + height;
+    // setMargin(heightTotal);
     window.addEventListener("scroll", handleScroll);
     window.addEventListener("resize", handleResize);
   }, []);
@@ -68,7 +68,6 @@ const Header = (props) => {
 
   return (
     <header>
-      {console.log(margin, "marginnnnn")}
       <section
         className={
           scrolltop > height
@@ -84,7 +83,6 @@ const Header = (props) => {
           className="header__banner-top"
         />
       </section>
-      {console.log(scrolltop, height, "KKKKKKKKKKKKKKKKKKKKK")}
       <section
         className={scrolltop > height ? "header stickee" : "header"}
         ref={refHeader}

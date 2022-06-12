@@ -8,22 +8,18 @@ import "./styles.css";
 
 const ProductDetails = (props) => {
   const { list, productId } = props;
-  console.log(props.list, "<<<<<<<<<<<PROPSSSSS 1");
   const [product, setProduct] = useState([]);
 
   const handleProduct = (list) => {
-    console.log("entrouuuuuuuuuuuuu");
     const productItem = list.filter(
       (product) => product.items[0].itemId === productId
     );
-    console.log(productItem, "<<<<<<<<<<<<PROD");
     setProduct(productItem);
   };
 
   const handleAddToCart = () => {};
 
   useEffect(() => {
-    console.log("check 1 <<<<<<<<<<<");
     handleProduct(list);
   }, []);
 
@@ -33,10 +29,6 @@ const ProductDetails = (props) => {
         <>
           <div className="details__breadcrumb">
             <IoHome size="22px" color="gray" />
-            {console.log(
-              product[0].categories[0],
-              "<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>"
-            )}
             {product[0].categories[0].split("/").join(" > ")}
           </div>
           <div className="details__item">

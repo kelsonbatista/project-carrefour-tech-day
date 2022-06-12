@@ -16,7 +16,6 @@ const CartSideBar = (props) => {
       ? JSON.parse(localStorage["carrefour-cart"])
       : [];
     if (cart.length > 0) {
-      console.log(cart.length, "WWWWWWWWWWWWWWWWWWWWW");
       setProducts(cart);
     }
   };
@@ -24,12 +23,10 @@ const CartSideBar = (props) => {
   useEffect(() => {
     if (qtyTotal <= 0) setProducts([]);
     getCart();
-    console.log(qtyTotal, "QQQQQQQQQQQQQQQQ");
   }, [qtyTotal]);
 
   return (
     <div className={`cartsidebar ${cartOpen && "active"}`}>
-      {console.log(cartOpen && "active", "OPENNNNNNNNNNNNNN<<<<<<")}
       <div className="cartsidebar__top">{`Carrinho (${qtyTotal})`}</div>
       <div className="cartsidebar__items">
         {qtyTotal <= 0 ? (
