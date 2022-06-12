@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import { Button, Form, FormControl, InputGroup } from "react-bootstrap";
+import "./styles.css";
 
 const AddToCartButton = (props) => {
   const { hasProducts, itemQty, index, handleQuantity, handleAddToCart } =
