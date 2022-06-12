@@ -19,7 +19,7 @@ const CartButton = (props) => {
         <BsCart2 size="30px" color="blue" />
       </Link>
       {cartQty !== 0 && (
-        <div className="cart__btn-qty">
+        <div className={cartQty ? "cart__btn-qty" : ""}>
           <p data-testid="shopping-cart-size">{cartQty}</p>
         </div>
       )}
