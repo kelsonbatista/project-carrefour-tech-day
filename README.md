@@ -1,6 +1,6 @@
 # About the project / _Sobre o projeto_
 
-This project is a challenge proposed by Carrefour Tech Day, where the object is to freely create an e-commerce containing the company's products through 2 different APIs, one to search stores by zip-code and another to search for products from store. The layout is mobile-focused.
+This project is a challenge proposed by Carrefour Tech Day, where the objective is to freely create an e-commerce containing the company's products through 2 different APIs, one to search stores by zip-code and another to search for products from store. The layout is mobile-focused.
 
 _Esse é projeto é um desafio proposto pelo Carrefour Tech Day, onde o objeto é criar livremente um e-commerce contendo produtos da empresa através de 2 APIs distintas, uma para buscar lojas pelo CEP e outra para buscar produtos da loja. O layout tem como foco dispositivos móveis._
 
