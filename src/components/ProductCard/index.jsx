@@ -14,9 +14,10 @@ const ProductCard = (props) => {
   const [hasProducts, setHasProducts] = useState(false);
 
   useEffect(() => {
-    console.log("############### UPDATE ################");
-    getCart();
+    console.log(subTotal, itemQty, "############### UPDATE ################");
     updateCart();
+    getCart();
+    handleZero();
   }, [subTotal, itemQty]);
 
   const productData = {
@@ -38,8 +39,11 @@ const ProductCard = (props) => {
       qty: 1,
       url: productData.url,
     });
+    const price = Number(
+      (Math.round(Number(productData.price) * 100) / 100).toFixed(2)
+    );
     setItemQty((prev) => Number(prev) + 1);
-    setSubTotal((prev) => Number(prev) + Number(productData.price.toFixed(2)));
+    setSubTotal((prev) => Number(prev) + price);
     localStorage.setItem("carrefour-cart", JSON.stringify(newCart));
     newCart.length > 0 ? setHasProducts(true) : setHasProducts(false);
   };
@@ -47,12 +51,15 @@ const ProductCard = (props) => {
   const handleQuantity = ({ target }) => {
     setUpdate(true);
     const action = target.getAttribute("data-id");
+    const price = Number(
+      (Math.round(Number(productData.price) * 100) / 100).toFixed(2)
+    );
     if (action === "increase") {
       setItemQty((prev) => prev + 1);
-      setSubTotal((prev) => prev + Number(productData.price.toFixed(2)));
+      setSubTotal((prev) => prev + price);
     } else {
       setItemQty((prev) => prev - 1);
-      setSubTotal((prev) => prev - Number(productData.price.toFixed(2)));
+      setSubTotal((prev) => prev - price);
     }
   };
 
@@ -63,7 +70,7 @@ const ProductCard = (props) => {
     const itemIndex =
       cart && cart.findIndex((item) => item.id === productData.id);
     if (cart.length > 0 && update) {
-      cart[itemIndex].price = Number(subTotal);
+      cart[itemIndex].price = Number(subTotal.toFixed(2));
       cart[itemIndex].qty = Number(itemQty);
       dispatchCart({ subTotal, itemQty });
     } else if (itemIndex >= 0) {
@@ -73,8 +80,20 @@ const ProductCard = (props) => {
       setHasProducts(false);
     }
     localStorage.setItem("carrefour-cart", JSON.stringify(cart));
-    setUpdate(false);
     itemIndex >= 0 ? setHasProducts(true) : setHasProducts(false);
+    setUpdate(false);
+  };
+
+  const handleZero = () => {
+    if (itemQty === 0 && hasProducts) {
+      getCart();
+      console.log(itemQty, "ZEROOOOOOO<<<<<<<<<<<<<<<<<<<<");
+      const cart = JSON.parse(localStorage.getItem("carrefour-cart"));
+      const newCart = cart.filter((item) => item.id !== productData.id);
+      console.log(newCart, productData.id, "ZEROOOOOOO<<<<CARTTT<<<<<<<<<<");
+      localStorage.setItem("carrefour-cart", JSON.stringify(newCart));
+      setHasProducts(false);
+    }
   };
 
   const getCart = () => {
@@ -85,17 +104,20 @@ const ProductCard = (props) => {
       console.log(cart, "<<<<<<<<<<<<<<<<<<< CART");
       const total =
         cart &&
-        cart
-          .reduce((acc, item) => {
-            return acc + Number(item.price);
-          }, 0)
-          .toFixed(2);
+        cart.reduce((acc, item) => {
+          return acc + Number(item.price);
+        }, 0);
+      const newTotal = Number(total.toFixed(2));
       const qty =
         cart &&
         cart.reduce((acc, item) => {
           return acc + item.qty;
         }, 0);
       console.log(total, qty, "<<<<<<<<<<<<<<<< GET CART");
+      dispatchCartTotal({ total: newTotal, qty });
+    } else {
+      const total = 0;
+      const qty = 0;
       dispatchCartTotal({ total, qty });
     }
   };
