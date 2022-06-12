@@ -1,70 +1,33 @@
-# Getting Started with Create React App
+# About the project / _Sobre o projeto_
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is a challenge proposed by Carrefour Tech Day, where the object is to freely create an e-commerce containing the company's products through 2 different APIs, one to search stores by zip-code and another to search for products from store. The layout is mobile-focused.
 
-## Available Scripts
+_Esse é projeto é um desafio proposto pelo Carrefour Tech Day, onde o objeto é criar livremente um e-commerce contendo produtos da empresa através de 2 APIs distintas, uma para buscar lojas pelo CEP e outra para buscar produtos da loja. O layout tem como foco dispositivos móveis._
 
-In the project directory, you can run:
+---
 
-### `npm start`
+# Skills / _Habilidades_
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- Javascript, HTML
+- CSS layout developed with Bootstrap and Tailwind. _Layout CSS desenvolvido com Bootstrap e Tailwind_
+- React with Redux for state management. _React com Redux para gerenciamento de estado_
+- API consumption com axios. _Consumo de API com axios_
+- Data storage in local storage. _Armazenamento de dados no local storage_
+- Creation of specific routes including 404 page. _Criação de rotas específicas incluindo página 404_
+- Use of icons from react-icons library. _Utilização de ícones da biblioteca react-icons_
+- Carousel of images. _Carrossel de imagens_
+- Use of conventional commits. _Utilização de commits padronizados_
+- App prepared to be deployed in Docker. _App preparado para ser implementado no Docker_
+- App deployed in Heroku. _App implementado no Heroku_
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+# Layout
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+<img src="intro.gif" alt="Carrefour Tech Day" style="width:100%;"/>
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+# Deployment / _Implantação_
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+See it in action/ **Veja em ação**: [https://carrefourtech.herokuapp.com/](https://carrefourtech.herokuapp.com/)
