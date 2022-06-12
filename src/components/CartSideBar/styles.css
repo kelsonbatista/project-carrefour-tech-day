@@ -79,4 +79,8 @@
   .cartsidebar__checkout-btn:active {
     @apply bg-green-600 !important;
   }
+
+  .cartsidebar__empty {
+    @apply text-center text-sm sm:text-base md:text-lg;
+  }
 }

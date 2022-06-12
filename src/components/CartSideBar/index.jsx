@@ -22,6 +22,7 @@ const CartSideBar = (props) => {
   };
 
   useEffect(() => {
+    if (qtyTotal <= 0) setProducts([]);
     getCart();
     console.log(qtyTotal, "QQQQQQQQQQQQQQQQ");
   }, [qtyTotal]);
@@ -31,7 +32,10 @@ const CartSideBar = (props) => {
       {console.log(cartOpen && "active", "OPENNNNNNNNNNNNNN<<<<<<")}
       <div className="cartsidebar__top">{`Carrinho (${qtyTotal})`}</div>
       <div className="cartsidebar__items">
-        {products &&
+        {qtyTotal <= 0 ? (
+          <div className="cartsidebar__empty">Seu carrinho está vazio.</div>
+        ) : (
+          products &&
           products.map((product) => (
             <div key={product.id} className="cartsidebar__item">
               <div className="cartsidebar__image">
@@ -39,11 +43,10 @@ const CartSideBar = (props) => {
               </div>
               <div className="cartsidebar__title">{product.title}</div>
               <div className="cartsidebar__qty">{product.qty}</div>
-              <div className="cartsidebar__price">
-                {`R$ ${product.price.toFixed(2)}`}
-              </div>
+              <div className="cartsidebar__price">{`R$ ${product.price}`}</div>
             </div>
-          ))}
+          ))
+        )}
       </div>
       <div className="cartsidebar__bottom">
         <div className="cartsidebar__summary">
