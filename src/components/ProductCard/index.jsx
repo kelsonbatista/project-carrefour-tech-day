@@ -1,16 +1,17 @@
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
-import { Button, Form, FormControl, Image, InputGroup } from "react-bootstrap";
+import { Image } from "react-bootstrap";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { setCart, setCartTotal } from "../../store/actions";
+import AddToCartButton from "../AddToCartButton";
 import "./styles.css";
 
 const ProductCard = (props) => {
   const { product, index, dispatchCart, dispatchCartTotal } = props;
   const [itemQty, setItemQty] = useState(0);
   const [subTotal, setSubTotal] = useState(0);
-  const [getItemQty, setGetItemQty] = useState(0);
+  // const [getItemQty, setGetItemQty] = useState(0);
   const [update, setUpdate] = useState(false);
   const [hasProducts, setHasProducts] = useState(false);
   const history = useHistory();
@@ -77,7 +78,7 @@ const ProductCard = (props) => {
     } else if (itemIndex >= 0) {
       const qty = cart[itemIndex].qty !== undefined && cart[itemIndex].qty;
       setItemQty(qty);
-      setGetItemQty(qty);
+      // setGetItemQty(qty);
       setHasProducts(false);
     }
     localStorage.setItem("carrefour-cart", JSON.stringify(cart));
@@ -145,56 +146,13 @@ const ProductCard = (props) => {
           )}`}
         </div>
       </div>
-      <div className="test">{`getitem ${getItemQty}`}</div>
-      {!hasProducts && (
-        <div className="product__add-div">
-          <button
-            key={index}
-            type="button"
-            className="product__add-btn btn btn-primary"
-            onClick={() => handleAddToCart()}
-          >
-            ADICIONAR
-          </button>
-        </div>
-      )}
-      <div className="product__qty">
-        <Form className="product__qty-form">
-          <InputGroup className=" mb-3">
-            {hasProducts && (
-              <>
-                <Button
-                  className="product__qty-btn-m btn btn-primary"
-                  type="button"
-                  data-id="decrease"
-                  onClick={(event) => handleQuantity(event)}
-                  id="basic-addon2"
-                >
-                  -
-                </Button>
-                <FormControl
-                  type="text"
-                  className="product__qty-input form-control"
-                  placeholder="Pesquise por produtos ou marcas"
-                  aria-label="Pesquise por produtos ou marcas"
-                  aria-describedby="basic-addon2"
-                  value={itemQty}
-                  disabled
-                />
-                <Button
-                  className="product__qty-btn-p btn btn-primary"
-                  type="button"
-                  data-id="increase"
-                  onClick={(event) => handleQuantity(event)}
-                  id="basic-addon2"
-                >
-                  +
-                </Button>
-              </>
-            )}
-          </InputGroup>
-        </Form>
-      </div>
+      <AddToCartButton
+        hasProducts={hasProducts}
+        itemQty={itemQty}
+        index={index}
+        handleQuantity={handleQuantity}
+        handleAddToCart={handleAddToCart}
+      />
     </div>
   );
 };
